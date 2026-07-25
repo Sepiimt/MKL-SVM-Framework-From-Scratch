@@ -288,6 +288,7 @@ with a parallel branch, `bom_stress_test` → `stress_test_results`, dedicated s
 | Pima Indians Diabetes   |       `767` |                          `8` | `0–7` → `0–7` (100.0%, no reduction)               | KTA                                 | [Pima Diabetes Report](https://github.com/Sepiimt/MKL-SVM-Framework-From-Scratch/blob/main/results/reports/diabetes_dataset_report.md) |
 | Banknote Authentication |     `1,371` |                          `4` | `0–3` → `0–3` (100.0%, no reduction)               | FISTA                               | [Banknote Report](https://github.com/Sepiimt/MKL-SVM-Framework-From-Scratch/blob/main/results/reports/ionosphere_dataset_report.md)    |
 | MAGIC Gamma Telescope   | `4,000` ⁽²⁾ |                         `10` | `0–9 `→ `0–6 `(96.1%)                              | All seven (comparative stress test) | [BOM Documentation](https://github.com/Sepiimt/MKL-SVM-Framework-From-Scratch/blob/main/docs/bom_and_mst_documentation.md)             |
+
 ⁽¹⁾ See dedicated report/documentation for detailed observation, hypothesis, and conclusions.
 ⁽²⁾ A stratified subsample of the full 19,020-row dataset, drawn with a fixed random seed (`42`) to keep the seven-way optimizer comparison computationally tractable and computationally light (in comparison to full kernel matrices with the size of ≈ **2.9 GB** per kernel and ≈**17 GB** at maximum) while preserving class balance.
 
