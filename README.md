@@ -290,6 +290,7 @@ with a parallel branch, `bom_stress_test` → `stress_test_results`, dedicated s
 | MAGIC Gamma Telescope   | `4,000` ⁽²⁾ |                         `10` | `0–9 `→ `0–6 `(96.1%)                              | All seven (comparative stress test) | [BOM Documentation](https://github.com/Sepiimt/MKL-SVM-Framework-From-Scratch/blob/main/docs/bom_and_mst_documentation.md)             |
 
 ⁽¹⁾ See dedicated report/documentation for detailed observation, hypothesis, and conclusions.
+
 ⁽²⁾ A stratified subsample of the full 19,020-row dataset, drawn with a fixed random seed (`42`) to keep the seven-way optimizer comparison computationally tractable and computationally light (in comparison to full kernel matrices with the size of ≈ **2.9 GB** per kernel and ≈**17 GB** at maximum) while preserving class balance.
 
 `PCA.scaler()` z-score standardizes each feature using training-set statistics only (test data reuses the stored means/stds via `fit=False`), and `PCA.fit()` / `PCA.transform()` follow a standard SVD-based decomposition, retaining components by explicit count rather than a fixed variance threshold — the variance-retained figures above are consequently reported, not targeted.
