@@ -273,9 +273,13 @@ All seven share the `BaseBetaOptimizer` interface (`update(support_vector_weight
 
 
 **An Important Objection to Academic Standards:**
+
 Academic literature often dictates that MKL algorithms should check the **Duality Gap** or strict **KKT condition tolerances** to declare convergence.  Calculating the Duality Gap requires computing the primal objective function at every single step, and checking KKT conditions requires evaluating complex active-set boundaries. Both approaches introduce massive computational overhead that will severely bottleneck our `fit()` loop. 
+
 Tracking $\Delta \beta$ _(formula mentioned below)_ provides the exact same practical stopping point with virtually zero computational cost:
+
 $$\vert{}\vert{} \beta_{new} - \beta_{prev} \vert{}\vert{}_\infty < \epsilon$$
+
 Hence we strongly advise against academic implementation in this regard.
 
 ---
