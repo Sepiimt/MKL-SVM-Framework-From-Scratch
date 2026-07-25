@@ -63,7 +63,7 @@ class SVM:
             # --- Setting Default Values ---
             self.kernels_arguments = self._arguments_default_values(X)
 
-    def guments_values_granter(self):
+    def _arguments_values_granter(self):
         # --- Priting Info ---
         print('Enter a value for each input')
         # --- if "Polynomial" Selected ---
@@ -134,10 +134,10 @@ class SVM:
 
 
     def fit(self, X, Y,
-            max_bo_iter = 500, 
+            max_bo_iter = 20, 
             bo_tolerance = 1e-3,
             smo_c = 1, 
-            max_smo_iter = 2000, 
+            max_smo_iter = 1500, 
             smo_tolerance = 1e-5,
             km_centering = False, 
             km_normalization = True,
