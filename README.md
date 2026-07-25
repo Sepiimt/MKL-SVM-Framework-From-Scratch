@@ -272,9 +272,7 @@ Seven interchangeable strategies (`src/mklsvm/mkl/optimizers.py`) update the ker
 All seven share the `BaseBetaOptimizer` interface (`update(support_vector_weights, Y, kernels_instances_matrix, current_beta_array)`), so adding an eighth strategy requires implementing only that one method and registering it in `MKL.available_bom`.
 
 
-
 **An Important Objection to Academic Standards:**
-
 Academic literature often dictates that MKL algorithms should check the **Duality Gap** or strict **KKT condition tolerances** to declare convergence.  Calculating the Duality Gap requires computing the primal objective function at every single step, and checking KKT conditions requires evaluating complex active-set boundaries. Both approaches introduce massive computational overhead that will severely bottleneck our `fit()` loop. 
 
 Tracking $\Delta \beta$ _(formula mentioned below)_ provides the exact same practical stopping point with virtually zero computational cost:
