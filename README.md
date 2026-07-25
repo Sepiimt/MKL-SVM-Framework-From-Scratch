@@ -82,14 +82,14 @@ which fixes every kernel's diagonal — and hence its trace — to a common scal
 
 ## 3. Package Architecture
 
-```
+```txt
                               ┌───────────────────────┐
-                              │          SVM           │  <- public facade
+                              │          `SVM`         │  <- public facade
                               │  select_kernels()       │
                               │  set_kernels_arguments() │
                               │  set_beta_optimizer()     │
                               │  fit() / predict()         │
-                              │  save_model() / load_model() │
+                              │  save_model() / load_model()│
                               └────────────┬──────────────┘
                                            │ delegates to
                               ┌────────────▼──────────────┐
@@ -99,24 +99,24 @@ which fixes every kernel's diagonal — and hence its trace — to a common scal
                               │  predict()                        │
                               └───┬────────────────┬─────────────┘
                                   │                │
-                     ┌────────────▼───┐   ┌─────────▼──────────┐
-                     │     Kernels      │   │        SMO          │  <- inner dual QP solver
-                     │  (6 subclasses)   │   │  fit()  (LIBSVM-style │
-                     │  fit_K()           │   │  working-set alternation, │
-                     │  compute_cross_K()  │   │  warm-starting)             │
-                     └───────────────────┘   └─────────────────────────────┘
+                     ┌────────────▼───┐  ┌─────────▼──────────┐
+                     │     Kernels     │  │        SMO          │  <- inner dual QP solver
+                     │  (6 subclasses)  │  │  fit() (LIBSVM-style │
+                     │  fit_K()          │  │  working-set alternation,│
+                     │  compute_cross_K() │  │  warm-starting)            │
+                     └───────────────────┘    └─────────────────────────────┘
                                   ▲
                      ┌────────────┴───────────────┐
                      │   optimizers.py (7 classes)  │  <- β-update strategies
                      │   BaseBetaOptimizer            │
                      └─────────────────────────────────┘
 
-               ┌────────────┐            ┌───────────────┐        ┌───────────┐
-               │     PCA      │          │    metrics    │        │   utils     │
-               │ (standalone,  │        │ mkl_svm_evaluation│        │ train_test_split │
-               │  SVD-based)     │        │ sklearn_semi_mkl_ │        │ timer               │
-               └────────────────┘        │ evaluation          │        └───────────┘
-                                          └───────────────────┘
+               ┌────────────┐            ┌───────────────┐           ┌───────────┐
+               │     PCA      │          │    metrics      │         │   utils     │
+               │ (standalone,  │         │ mkl_svm_evaluation│       │ train_test_split │
+               │  SVD-based)     │       │ sklearn_semi_mkl_  │      │ timer               │
+               └────────────────┘        │ evaluation          │     └───────────────────┘
+                                         └───────────────────┘
 ```
 
 **Design notes on cross-cutting mechanisms:**
@@ -153,15 +153,13 @@ MKL-SVM-Framework-From-Scratch-1.0.0/
 │   ├── reports/                # 4 per-dataset Markdown validation reports (custom vs. scikit-learn)
 │   └── benchmarks/                # Raw metrics .txt backing the 7-optimizer stress test
 ├── docs/
-│   └── bom_and_mst_documentation.md   # Full technical paper — this README summarizes it
+│   └── bom_and_mst_documentation.md   # Full technical paper on different beta optimization methods — this README summarizes it
 ├── requirements.txt
 ├── LICENSE                       # GNU GPLv3
 └── .gitignore
 ```
 
 Under `artifacts/svm/telescope/` and `results/benchmarks/telescope/`, results are further split by β-optimizer (`ed/`, `fista/`, `fw/`, `hybrid/`, `kta/`, `l2mkl/`, `simplemkl/`), one subfolder per method compared in the stress test.
-
-> One artifact, `artifacts/predictions/sonar_svm_prediction.npy`, is a holdover from an earlier UCI Sonar dataset experiment; the corresponding raw data, split, and report are not part of this snapshot and the file can be disregarded.
 
 ---
 
@@ -423,10 +421,12 @@ For the complete treatment — theoretical background and behavior observations 
 Distributed under the **GNU General Public License v3.0**. See [LICENSE](https://github.com/Sepiimt/MKL-SVM-Framework-From-Scratch/blob/main/LICENSE) for the full text.
 
 ```
-PCA and MKL-SVM framework: Custom machine learning algorithms implementations from scratch.
+PCA and MKL-SVM framework: Custom machine learning algorithm implementations from scratch.
 Copyright (C) 2026  Sepanta Metanat
 
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
+This program is free software: you can redistribute it and/or modify it under the 
+terms of the GNU General Public License as published by the Free Software Foundation, 
+either version 3 of the License, or any later version.
 ```
 
 ---
