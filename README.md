@@ -2,12 +2,12 @@
 
 **A ground-up implementation of Principal Component Analysis, Multiple Kernel Learning, and Support Vector Machines, unified under a single alternating-optimization pipeline with seven interchangeable kernel-weight optimization strategies.**
 
-| **Author**            | Sepanta Metanat                                                |
-| --------------------- | -------------------------------------------------------------- |
-| **Version**           | 1.0.0                                                          |
-| **License**           | GNU General Public License v3.0                                |
-| **Core dependencies** | NumPy, pandas (scikit-learn used only for parity benchmarking) |
-| **First / last edit** | 2026-06-30 / 2026-07-24                                        |
+| **Author**            | Sepanta Metanat                                                                                                          |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| **Version**           | 1.0.0                                                                                                                    |
+| **License**           | GNU General Public License v3.0 ([LICENSE](https://github.com/Sepiimt/MKL-SVM-Framework-From-Scratch/blob/main/LICENSE)) |
+| **Core dependencies** | NumPy, pandas (scikit-learn used only for parity benchmarking)                                                           |
+| **First / last edit** | 2026-06-30 / 2026-07-24                                                                                                  |
 
 ---
 
