@@ -120,7 +120,7 @@ which fixes every kernel's diagonal — and hence its trace — to a common scal
 ```
 
 **Design notes on cross-cutting mechanisms:**
-
+	
 - **Kernel registration is metaclass-driven.** `Kernels` uses a custom metaclass (`IterativeMeta`) so that `for kernel in Kernels: ...` iterates its own subclasses in definition order. `MKL._beta_and_kernels_instances_matrix_creator` relies on this to build `kernels_instances_matrix` in lockstep with the fixed six-element `selected_kernels` boolean mask (`[Linear, Polynomial, RBF, Laplacian, Rational Quadratic, Sigmoid]`), rather than hardcoding a kernel list.
 - **Warm-starting.** `SMO.fit()` accepts `initial_alpha` / `initial_b`. Inside `MKL`'s outer β loop, each successive SMO call is warm-started from the previous call's solution (`cache_initial_alpha`, `cache_initial_b`), since the combined kernel typically shifts only slightly between consecutive β updates — this materially reduces the number of SMO iterations required on later outer iterations.
 - **LIBSVM-style working-set alternation.** `SMO.fit()` alternates between scanning the full dataset (`examine_all=True`) and scanning only the non-bound support vectors ($0 < \alpha_i < C$), falling back to a full scan whenever the restricted scan makes no progress. Non-bound indices are cached and only recomputed when the mask actually changes (a dirty-flag optimization), avoiding an $O(N)$ `np.where` scan on every candidate index.
@@ -270,6 +270,13 @@ Seven interchangeable strategies (`src/mklsvm/mkl/optimizers.py`) update the ker
 | `FISTA`                            | Accelerated projected gradient (Nesterov)                       | Momentum-accelerated proximal gradient with adaptive restart, followed by simplex projection                                                                              | Sparse; in this benchmark converges to the same fixed point as Frank-Wolfe and Hybrid L1/L2 |
 
 All seven share the `BaseBetaOptimizer` interface (`update(support_vector_weights, Y, kernels_instances_matrix, current_beta_array)`), so adding an eighth strategy requires implementing only that one method and registering it in `MKL.available_bom`.
+
+
+**An Important Objection to Academic Standards:**
+Academic literature often dictates that MKL algorithms should check the **Duality Gap** or strict **KKT condition tolerances** to declare convergence.  Calculating the Duality Gap requires computing the primal objective function at every single step, and checking KKT conditions requires evaluating complex active-set boundaries. Both approaches introduce massive computational overhead that will severely bottleneck our `fit()` loop. 
+Tracking $\Delta \beta$ _(formula mentioned below)_ provides the exact same practical stopping point with virtually zero computational cost:
+$$\vert{}\vert{} \beta_{new} - \beta_{prev} \vert{}\vert{}_\infty < \epsilon$$
+Hence we strongly advise against academic implementation in this regard.
 
 ---
 
