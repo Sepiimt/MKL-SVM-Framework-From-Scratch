@@ -57,7 +57,7 @@ class SVM:
         # --- Checking for Selected Kernels ---
         if self.selected_kernels is None:
             raise ValueError("Error: Please select the kernels first by calling 'SVM.select_kernels()' method.")
-        if not default_values:
+        if default_values is True:
             self.kernels_arguments = self._arguments_values_granter()
         else:
             # --- Setting Default Values ---
@@ -71,24 +71,34 @@ class SVM:
             print('For "Polynomial" Kernel:')
             poly_c = float(input('Enter "c" Value: '))
             poly_d = float(input('Enter "d" Value: '))
+        else:
+            poly_c, poly_d = None, None
         # --- if "RBF" Selected ---
         if self.selected_kernels[2]:
             print('For "RBF" Kernel:')
             rbf_gamma = float(input('Enter "gamma" Value: '))
+        else:
+            rbf_gamma = None
         # --- if Laplacian Kernel ---
         if self.selected_kernels[3]:
             print('For "Laplacian" Kernel:')
             lap_gamma = float(input('Enter "gamma" Value: '))
+        else:
+            lap_gamma = None
         # --- if Rational Quadratic Kernel ---
         if self.selected_kernels[4]:
             print('For "Rational Quadratic" Kernel:')
             rq_alpha = float(input('Enter "alpha" Value: '))
             rq_ls = float(input('Enter "length_scale" Value: '))
+        else:
+            rq_alpha, rq_ls = None, None
         # --- if "Sigmoid" Selected ---
         if self.selected_kernels[5]:
             print('For "Sigmoid" Kernel:')
             sigmoid_gamma = float(input('Enter "gamma" Value: '))
             sigmoid_c = float(input('Enter "c" Value: '))
+        else:
+            sigmoid_gamma, sigmoid_c = None, None
         # --- Packing into a Single NumPy Vector ---
         kernel_params = np.array([poly_c, poly_d, rbf_gamma, lap_gamma, rq_alpha, rq_ls, sigmoid_gamma, sigmoid_c], dtype=np.float64)
         # --- Return ---
